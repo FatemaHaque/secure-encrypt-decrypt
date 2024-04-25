@@ -8,6 +8,7 @@ export default function Login() {
     email: "",
     password: "",
   });
+  const [responseData, setResponseData] = useState(null);
 
   const router = useRouter();
 
@@ -35,7 +36,8 @@ export default function Login() {
       if (response.ok) {
         router.push("/");
       } else {
-        console.error("Login error:", data.message);
+        console.log("Login error:", data.error);
+        setResponseData(data.error);
       }
     } catch (error) {
       console.error("Login error:", error);
@@ -90,7 +92,7 @@ export default function Login() {
           <div className="flex items-center justify-between">
             <div className="text-sm">
               <Link href="/register">
-                <p className="font-medium text-indigo-600 hover:text-indigo-500">
+                <p className="font-medium text-indigo-600 hover:text-indigo-500 hover:underline">
                   Create account
                 </p>
               </Link>
@@ -106,6 +108,7 @@ export default function Login() {
             </button>
           </div>
         </form>
+        {responseData && <p className="text-red-400">{responseData}</p>}
       </div>
     </div>
   );

@@ -8,6 +8,15 @@ import { decrypt } from "@/utils/crypto";
 export default function Page() {
   const [userData, setUserData] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPost, setSelectedPost] = useState(null);
+
+  const openModal = (post) => {
+    setSelectedPost(post);
+  };
+
+  const closeModal = () => {
+    setSelectedPost(null);
+  };
 
   const getUserInfo = async () => {
     try {
@@ -70,18 +79,41 @@ export default function Page() {
             />
           )}
         </div>
-        <div className="flex gap-12 flex-wrap">
+        <div className="flex flex-wrap gap-8">
           {userData &&
             userData.posts.map((post, index) => (
-              <div key={index} className="bg-gray-200 py-4 px-4 h-72 w-60">
-                <h2 className="text-center font-medium text-xl pb-4">
+              <div
+                key={index}
+                className="bg-white rounded-lg shadow-lg p-8 w-72 h-80 overflow-hidden cursor-pointer"
+                onClick={() => openModal(post)}
+              >
+                <h2 className="text-center text-2xl font-bold mb-4">
                   {decrypt(post.title)}
                 </h2>
-                <p className="text-sm">
-                  {decrypt(post.content).slice(0, 40) + "..."}
+                <p className="text-gray-600">
+                  {decrypt(post.content).slice(0, 100) +
+                    (post.content.length > 100 ? "..." : "")}
                 </p>
               </div>
             ))}
+
+          {/* Modal */}
+          {selectedPost && (
+            <div className="fixed inset-0 flex justify-center items-center bg-gray-800 bg-opacity-75 px-40">
+              <div className="bg-white rounded-lg shadow-xl p-8">
+                <h2 className="text-center text-3xl font-bold mb-4">
+                  {decrypt(selectedPost.title)}
+                </h2>
+                <p className="text-gray-700">{decrypt(selectedPost.content)}</p>
+                <button
+                  className="mt-6 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                  onClick={closeModal}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -1,6 +1,5 @@
 import { getDataFromToken } from "@/helper/getDataFromToken";
 import { NextResponse } from "next/server";
-import { NextRequest } from "next/server";
 import connect from "@/lib/mongodb";
 import User from "@/lib/models/User";
 

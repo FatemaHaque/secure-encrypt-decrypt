@@ -5,8 +5,8 @@ import connect from "@/lib/mongodb";
 import User from "@/lib/models/User";
 
 export async function GET(request) {
-  await connect();
   try {
+    await connect();
     const userID = await getDataFromToken(request);
     const user = await User.findById({ _id: userID }).select("-password");
     return NextResponse.json(

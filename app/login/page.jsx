@@ -56,7 +56,7 @@ export default function Login() {
           <input type="hidden" name="remember" value="true" />
           <div className="rounded-md shadow-sm -space-y-px">
             <div className="py-4">
-              <label htmlFor="username" className="sr-only py-8">
+              <label htmlFor="email" className="sr-only py-8">
                 Email
               </label>
               <input

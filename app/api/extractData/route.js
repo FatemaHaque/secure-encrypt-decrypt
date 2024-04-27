@@ -5,8 +5,6 @@ import connect from "@/lib/mongodb";
 import User from "@/lib/models/User";
 
 export async function GET(request) {
-  console.log("you reached here");
-  console.log(process.env.Token_Secret);
   await connect();
   try {
     const userID = await getDataFromToken(request);

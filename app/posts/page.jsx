@@ -81,19 +81,28 @@ export default function Page() {
         </div>
         <div className="flex flex-wrap gap-8">
           {userData &&
-            userData.posts.map((post, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-lg shadow-lg p-8 w-72 h-80 overflow-hidden cursor-pointer"
-                onClick={() => openModal(post)}
-              >
-                <h2 className="text-center text-2xl font-bold mb-4">
-                  {decrypt(post.title)}
-                </h2>
-                <p className="text-gray-600">
-                  {decrypt(post.content).slice(0, 100) +
-                    (post.content.length > 100 ? "..." : "")}
-                </p>
+            (userData.posts && userData.posts.length > 0 ? (
+              <div className="">
+                {userData.posts.map((post, index) => (
+                  <div
+                    key={index}
+                    className="bg-white rounded-lg shadow-lg p-8 w-72 h-80 overflow-hidden cursor-pointer"
+                    onClick={() => openModal(post)}
+                  >
+                    <h2 className="text-center text-2xl font-bold mb-4">
+                      {decrypt(post.title)}
+                    </h2>
+                    <p className="text-gray-600">
+                      {decrypt(post.content).slice(0, 100) +
+                        (post.content.length > 100 ? "..." : "")}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-2xl text-[#f2jk87]">
+                Currently, you do not have any posts. Please click the {"'"}Add
+                New Post{"'"} button to create a new post.
               </div>
             ))}
 
